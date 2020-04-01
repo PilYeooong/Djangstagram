@@ -1,0 +1,7 @@
+__pycache__
+db.sqlite3
+/static
+/media
+.vscode
+.python-version
+.isort.cfg
