@@ -1,12 +1,109 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.4.1-dist/css/bootstrap.min.css' %}">
+    <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap-4.4.1-dist/js/bootstrap.min.js' %}"></script>
     <title>Djangstagram</title>
 </head>
-<body> 
+
+<body>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="border-bottom mb-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white">
+                        <h5 class="my-0 mr-md-auto font-weight-normal">
+                            <svg class="mr-3" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                            <img src="{% static 'logo.png' %}" alt="Djangstagram">
+
+                        </h5>
+                        <nav class="my-2 my-md-0 mr-md-3">
+                            <a class="p-2 text-dark" href="/explorer/">
+                                <svg aria-label="사람 찾기" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48"
+                                    width="22">
+                                    <path clip-rule="evenodd"
+                                        d="M24 .5C37 .5 47.5 11 47.5 24S37 47.5 24 47.5.5 37 .5 24 11 .5 24 .5zm0 44c11.3 0 20.5-9.2 20.5-20.5S35.3 3.5 24 3.5 3.5 12.7 3.5 24 12.7 44.5 24 44.5zm-4.4-23.7c.3-.5.7-.9 1.2-1.2l14.8-8.1c.3-.1.6-.1.8.1.2.2.3.5.1.8l-8.1 14.8c-.3.5-.7.9-1.2 1.2l-14.8 8.1c-.3.1-.6.1-.8-.1-.2-.2-.3-.5-.1-.8l8.1-14.8zm6.2 5l4.3-7.8-7.8 4.3 3.5 3.5z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                            <a class="p-2 text-dark" href="/accounts/activity/">
+                                <svg aria-label="활동 피드" class="_8-yf5 " fill="#262626" height="22" viewBox="0 0 48 48"
+                                    width="22">
+                                    <path clip-rule="evenodd"
+                                        d="M34.3 3.5C27.2 3.5 24 8.8 24 8.8s-3.2-5.3-10.3-5.3C6.4 3.5.5 9.9.5 17.8s6.1 12.4 12.2 17.8c9.2 8.2 9.8 8.9 11.3 8.9s2.1-.7 11.3-8.9c6.2-5.5 12.2-10 12.2-17.8 0-7.9-5.9-14.3-13.2-14.3zm-1 29.8c-5.4 4.8-8.3 7.5-9.3 8.1-1-.7-4.6-3.9-9.3-8.1-5.5-4.9-11.2-9-11.2-15.6 0-6.2 4.6-11.3 10.2-11.3 4.1 0 6.3 2 7.9 4.2 3.6 5.1 1.2 5.1 4.8 0 1.6-2.2 3.8-4.2 7.9-4.2 5.6 0 10.2 5.1 10.2 11.3 0 6.7-5.7 10.8-11.2 15.6z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </a>
+                            <a class="p-2 text-dark" href="#">
+                                {{user}}Profile
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% block content %}
     {% endblock content %}
+    <div class="border-top mt-3">
+        <div class="container">
+            <footer class="pt-4 my-md-5 pt-md-5 ">
+                <div class="row">
+                    <div class="col-12 col-md">
+                        <img class="mb-2" src="/docs/4.4/assets/brand/bootstrap-solid.svg" alt="" width="24"
+                            height="24">
+                        <small class="d-block mb-3 text-muted">© 2017-2019</small>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Features</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Cool stuff</a></li>
+                            <li><a class="text-muted" href="#">Random feature</a></li>
+                            <li><a class="text-muted" href="#">Team feature</a></li>
+                            <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                            <li><a class="text-muted" href="#">Another one</a></li>
+                            <li><a class="text-muted" href="#">Last time</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>Resources</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Resource</a></li>
+                            <li><a class="text-muted" href="#">Resource name</a></li>
+                            <li><a class="text-muted" href="#">Another resource</a></li>
+                            <li><a class="text-muted" href="#">Final resource</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-md">
+                        <h5>About</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a class="text-muted" href="#">Team</a></li>
+                            <li><a class="text-muted" href="#">Locations</a></li>
+                            <li><a class="text-muted" href="#">Privacy</a></li>
+                            <li><a class="text-muted" href="#">Terms</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
 </body>
+
 </html>

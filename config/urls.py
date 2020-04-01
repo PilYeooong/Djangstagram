@@ -1,10 +1,22 @@
 from django.conf import settings
-from django.contrib import admin
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.contrib import admin
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.urls import include
+from django.urls import path
+from django.urls import re_path
+from django.views.generic import TemplateView
+
+
+def root(request):
+    return render(request, 'root.html')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('', login_required(TemplateView.as_view(template_name='root.html')), name='root'),
 ]
 
 if settings.DEBUG:
