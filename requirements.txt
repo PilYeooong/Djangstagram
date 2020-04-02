@@ -3,10 +3,13 @@ beautifulsoup4==4.8.2
 Django==3.0.4
 django-bootstrap4==1.1.1
 django-debug-toolbar==2.2
+django-pydenticon==0.2
 entrypoints==0.3
 flake8==3.7.9
 mccabe==0.6.1
+Pillow==7.1.0
 pycodestyle==2.5.0
+pydenticon==0.3.1
 pyflakes==2.1.1
 pytz==2019.3
 soupsieve==2.0

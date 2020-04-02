@@ -7,6 +7,8 @@ from django.urls import include
 from django.urls import path
 from django.urls import re_path
 from django.views.generic import TemplateView
+from django_pydenticon.views import image as pydenticon_image
+import django_pydenticon.urls
 
 
 def root(request):
@@ -16,6 +18,7 @@ def root(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('identicon/image/<path:data>/', pydenticon_image, name='pydenticon_image'),
     path('', login_required(TemplateView.as_view(template_name='root.html')), name='root'),
 ]
 
