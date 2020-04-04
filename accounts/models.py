@@ -12,6 +12,8 @@ class User(AbstractUser):
         MALE = 'Male', '남성'  # DB 저장이 앞, 보여지는부분 뒤
         FEMALE = 'Female', '여성'
 
+    follower_set = models.ManyToManyField('self', blank=True)
+    following_set = models.ManyToManyField('self', blank=True)
     website_url = models.URLField(blank=True)
     bio = models.TextField(blank=True)
     phone_number = models.CharField(max_length=13,

@@ -1,4 +1,5 @@
 {% extends 'instagram/layout.html' %}
+{% load thumbnail %}
 
 {% block content %}
     <div class="container">
@@ -11,16 +12,21 @@
                 {% if page_user == request.user %}
                     <a href="{% url 'profile-edit' %}" class="btn btn-secondary btn-sm">Edit Profile</a>
                 {% endif %}
+                {% if is_follow %}
+                    <a href="{% url 'user-unfollow' page_user.username %}">Unfollow</a>
+                {% else %}
+                    <a href="{% url 'user-follow' page_user.username %}">Follow</a>
+                {% endif %}
                 <hr>
-                0 posts, 0 followers, 0 following
+                {{ post_list_count }} posts, 0 followers, 0 following
                 <hr>
                 {{ page_user }}
             </div>
         </div>
         <div class="row mt-3">
             {% for post in post_list %}
-                <div class="col-sm-4">
-                    <img src="{{ post.photo.url }}" alt="{{ post.caption }}" style="width:100%; height:100%;">
+                <div class="col-sm-4 mb-5">
+                    <img src="{% thumbnail post.photo 512x512 crop %}" alt="{{ post.caption }}" style="width:100%; height:100%;">
                 </div>
             {% endfor %}
         </div>
